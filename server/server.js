@@ -24,7 +24,7 @@ app.use("/modify_contact", modify_contact);
 app.use("/login", login);
 app.use("/signup", signup);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
