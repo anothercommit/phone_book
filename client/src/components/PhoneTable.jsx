@@ -1,27 +1,37 @@
 import { useState } from "react";
 
-function PhoneTable({ contacts }) {
+function PhoneTable() {
   const [filter, setFilter] = useState("");
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    myAxios
+      .get("/get_contacts")
+      .then((res) => {
+        setContacts(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleFilter = (event) => {
     setFilter(event.target.value);
   };
 
-  const filterContacs = () => {
-    return contacts.filter(
-      (c) =>
+  const filterContacts = () => {
+    return filter
+      ? contacts.filter((c) =>
         c.name.toLowerCase().includes(filter) ||
         c.lastName.toLowerCase().includes(filter) ||
-        c.number.toLowerCase().includes(filter),
-    );
+        c.number.toLowerCase().includes(filter)
+      )
+      : contacts;
   };
 
   return (
     <>
-      <ContactForm />
+      <h3>Contactos</h3>
+      <input type="text" placeholder="search" onChange={handleFilter} />
       <table>
-        <caption>Contactos</caption>
-        <input type="text" placeholder="search" onChange={handleFilter} />
         <thead>
           <tr>
             <th>Nombre</th>
@@ -30,7 +40,7 @@ function PhoneTable({ contacts }) {
           </tr>
         </thead>
         <tbody>
-          {filterContacs().map((contact) => (
+          {filterContacts().map((contact) => (
             <tr>
               <td>{contact.name}</td>
               <td>{contact.lastName}</td>

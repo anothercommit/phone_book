@@ -8,7 +8,9 @@ const saltRounds = 10;
 router.post("/", async (req, res) => {
   const { name, password } = req.body;
 
-  if (!User.exists({ name: name })) {
+  const exists = await User.exists({ name: name });
+
+  if (!exists) {
     bcrypt
       .hash(password, saltRounds)
       .then(async (hash) => {
@@ -17,7 +19,9 @@ router.post("/", async (req, res) => {
         res.status(201).json(user);
       })
       .catch((error) => res.status(400).json({ message: error.message }));
-  } else res.status(406).send(`User ${name} already exists`);
+  } else {
+    res.status(406).send(`User ${name} already exists`);
+  }
 });
 
 export default router;

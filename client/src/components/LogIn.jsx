@@ -25,24 +25,27 @@ function LogIn({ handleLogIn }) {
   };
 
   return (
-    <form action="POST" onSubmit={handleSubmit}>
-      <div className="userFormLogin">
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          onChange={(event) => setName(event.target.value)}
-        />
+    <>
+      <h2>Log In</h2>
+      <form action="POST" onSubmit={handleSubmit}>
+        <div className="userFormLogin">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            onChange={(event) => setName(event.target.value)}
+          />
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          id="password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <button type="submit">Log In</button>
-    </form>
+          <label htmlFor="password">Password</label>
+          <input
+            type="text"
+            id="password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <button type="submit">Log In</button>
+      </form>
+    </>
   );
 }
 

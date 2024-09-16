@@ -1,15 +1,16 @@
 import express from "express";
 import User from "../models/User.js";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { name, password } = req.body;
 
-  const usuario = await User.findOne({ name: name });
+  const user = await User.findOne({ name: name });
 
-  if (usuario) {
-    bcrypt.compare(password, usuario.password).then((result) => {
+  if (user) {
+    bcrypt.compare(password, user.password).then((result) => {
       result //
         ? res.status(200).send(true)
         : res.status(301).send(false);

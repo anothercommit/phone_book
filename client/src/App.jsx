@@ -1,5 +1,7 @@
 import { useState } from "react";
 import LogIn from "./components/LogIn.jsx";
+import PhoneTable from "./components/PhoneTable.jsx";
+import ContactForm from "./components/ContactForm.jsx";
 
 function App() {
   const [logged, setLogged] = useState(false);
@@ -8,12 +10,12 @@ function App() {
     if (bool) setLogged(true);
   };
 
-  console.log(logged);
-  return !logged ? (
-    <LogIn handleLogIn={handleLogIn} />
-  ) : (
+  console.log("logged: ", logged);
+  return !logged ? <LogIn handleLogIn={handleLogIn} /> : (
     <>
       <p>Logeado!</p>
+      <ContactForm />
+      <PhoneTable />
     </>
   );
 }

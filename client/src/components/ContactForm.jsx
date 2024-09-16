@@ -1,6 +1,7 @@
 import { useState } from "react";
+import myAxios from "../myAxios.js";
 
-function contactForm() {
+function ContactForm() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [number, setNumber] = useState("");
@@ -13,7 +14,7 @@ function contactForm() {
     myAxios
       .post("/modify_contact", {
         name: name,
-        lastName: password,
+        lastName: lastName,
         number: number,
       })
       .then((res) => {
@@ -25,31 +26,34 @@ function contactForm() {
   };
 
   return (
-    <form action="POST" onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        onChange={(event) => setName(event.target.value)}
-      />
+    <>
+      <h3>Agregar contacto</h3>
+      <form action="POST" onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          onChange={(event) => setName(event.target.value)}
+        />
 
-      <label htmlFor="lastName">lastName</label>
-      <input
-        type="text"
-        id="lastName"
-        onChange={(event) => setLastName(event.target.value)}
-      />
+        <label htmlFor="lastName">lastName</label>
+        <input
+          type="text"
+          id="lastName"
+          onChange={(event) => setLastName(event.target.value)}
+        />
 
-      <label htmlFor="number">Number</label>
-      <input
-        type="text"
-        id="number"
-        onChange={(event) => setNumber(event.target.value)}
-      />
+        <label htmlFor="number">Number</label>
+        <input
+          type="text"
+          id="number"
+          onChange={(event) => setNumber(event.target.value)}
+        />
 
-      <button type="submit">Agendar</button>
-    </form>
+        <button type="submit">Agendar</button>
+      </form>
+    </>
   );
 }
 
-export default contactForm;
+export default ContactForm;
