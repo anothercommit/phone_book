@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import myAxios from "../myAxios.js";
 
 function PhoneTable() {
   const [filter, setFilter] = useState("");
@@ -15,6 +16,16 @@ function PhoneTable() {
 
   const handleFilter = (event) => {
     setFilter(event.target.value);
+  };
+
+  const handleDelete = (id) => {
+    myAxios
+      .delete(`/modify_contacts/:${id}`)
+      .then((res) => {
+        console.log(res);
+        alert("deleted succesfully");
+      })
+      .catch((err) => console.log(err));
   };
 
   const filterContacts = () => {
@@ -45,6 +56,14 @@ function PhoneTable() {
               <td>{contact.name}</td>
               <td>{contact.lastName}</td>
               <td>{contact.number}</td>
+              <td>
+                <button
+                  className="deleteButton"
+                  onClick={() => handleDelete(contact._id)}
+                >
+                  X
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
